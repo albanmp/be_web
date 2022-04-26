@@ -1,15 +1,17 @@
-0- créer un compte github (github.com)
+# Voici comment associer le projet github à VS Code:
 
-1- télécharger git (https://git-scm.com)
+0. créer un compte github (github.com)
 
-2- ouvrir un éditeur de code (ex: VSCode)
+1. télécharger git (https://git-scm.com)
 
-3- dans la section Extension: installer l'extension "Github Pull Requests and Issues"
+2. ouvrir un éditeur de code (ex: VSCode)
 
-4- dans la section Explorateur: sélectionner "Cloner un dépôt"
+3. dans la section Extension: installer les extensions "Github Pull Requests and Issues" et "gitignore"
 
-5- dans la barre URL, coller l'adresse "git@github.com:albanmp/be_web.git"
+4. dans la section Explorateur: sélectionner "Cloner un dépôt"
 
-6- dans l'explorateur de dossier qui s'est ouvert, choisir l'emplacement dans lequel vous stockerez dans votre ordinateur le projet Github
+5. dans la barre URL, coller l'adresse "git@github.com:albanmp/be_web.git"
 
-7- cliquer sur le message qui s'affiche afin d'ouvrir le dossier
+6. dans l'explorateur de dossier qui s'est ouvert, choisir l'emplacement dans lequel vous stockerez dans votre ordinateur le projet Github
+
+7. cliquer sur le message qui s'affiche afin d'ouvrir le dossier
