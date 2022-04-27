@@ -36,3 +36,7 @@ def component_dropdown():
 @app.route("/table")
 def table():
     return render_template("table.html")
+
+@app.route("/webmaster")
+def webmaster():
+    return render_template("webmaster.html")
