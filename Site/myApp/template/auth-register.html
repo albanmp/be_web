@@ -21,13 +21,18 @@
                     <div class="auth-logo">
                         <a href="/"><img src="/static/images/logo/logo.png" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Sign Up</h1>
-                    <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
+                    <h1 class="auth-title">Créer un compte</h1>
 
                     <form action="/">
 
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" placeholder="Nom">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="text" class="form-control form-control-xl" placeholder="Pseudo">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
@@ -39,32 +44,37 @@
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Pseudo">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-xl" placeholder="Mot de passe">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Confirm Password">
-                            <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
+
+                        <select name="monSelect" aria-label="monSelect"> 
+                            <option selected disabled> 
+                                Statut
+                            </option>
+                            <option value="2">Administrateur</option> 
+                            <option value="4">Utilisateur</option>
+                        </select> 
+
+                        <div class="btn-group mb-1">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle me-1" type="button"
+                                    id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Primary
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Option 1</a>
+                                    <a class="dropdown-item" href="#">Option 2</a>
+                                    <a class="dropdown-item" href="#">Option 3</a>
+                                </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Créer le compte</button>
                     </form>
-                
-                    <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Already have an account? <a href="/auth-login"
-                                class="font-bold">Log
-                                in</a>.</p>
-                    </div>
                 </div>
             </div>
             
