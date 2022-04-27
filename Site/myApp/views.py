@@ -33,9 +33,9 @@ def aeroclubs():
 def component_dropdown():
     return render_template("component-dropdown.html")
 
-@app.route("/table")
-def table():
-    return render_template("table.html")
+@app.route("/gérer-profils")
+def gérer_profils():
+    return render_template("gérer-profils.html")
 
 @app.route("/webmaster")
 def webmaster():
