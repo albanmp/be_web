@@ -32,3 +32,7 @@ def aeroclubs():
 @app.route("/component-dropdown")
 def component_dropdown():
     return render_template("component-dropdown.html")
+
+@app.route("/table")
+def table():
+    return render_template("table.html")
