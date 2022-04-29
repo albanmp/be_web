@@ -1,7 +1,12 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, request, redirect, session, jsonify
+from .model import bdd as bdd
 from .controller import function as f
-import hashlib
+from werkzeug.utils import secure_filename
+
+
+
 app = Flask(__name__)
+
 app.template_folder = "template"
 app.static_folder = "static"
 app.config.from_object('myApp.config')
@@ -57,10 +62,10 @@ def login():
     msg = f.verifAuth(login,password)
     print(msg)
     if "idUser" in session: # authentification réussie
-        return redirect("/index/authOK")
+        return redirect("/authOK")
     else: # echec authentification
         return redirect("/connecter/authEchec")
 
-mdp = hashlib.sha256(mdp.encode())
-mdpC = mdp.hexdigest() #mot de passe chiffré
-add_user(email, nom, prenom, statut, login, motPasse, avatar)
+#mdp = hashlib.sha256(mdp.encode())
+#mdpC = mdp.hexdigest() #mot de passe chiffré
+#add_user(email, nom, prenom, statut, login, motPasse, avatar)

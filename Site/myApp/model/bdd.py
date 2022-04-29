@@ -146,4 +146,3 @@ def saveDataFromFile(data):
     except mysql.connector.Error as err:
         msg = "Failed saveDataFromFile data : {}".format(err)
     return msg
-    
