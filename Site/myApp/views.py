@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, request, redirect
-from .controller import funcion as f
+from .controller import function as f
 app = Flask(__name__)
 app.template_folder = "template"
 app.static_folder = "static"
@@ -44,7 +44,8 @@ def webmaster():
 
 @app.route("/logout") # menu se connecter @app.route("/connecter/<infoMsg>")
 def logout():
-    return redirect("/connecter")
+    session.clear()
+    return redirect("/connecter/logoutOK")
 
 # traitement du formulaire d'authentification
 @app.route("/login", methods=["POST"])
