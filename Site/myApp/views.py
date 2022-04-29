@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, request, redirect
+from .controller import funcion as f
 app = Flask(__name__)
 app.template_folder = "template"
 app.static_folder = "static"
@@ -9,9 +10,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/auth-login")
+@app.route("/connecter")
 def auth_login():
-    return render_template("auth-login.html")
+    return render_template("connecter.html")
 
 @app.route("/auth-register")
 def auth_register():
@@ -40,3 +41,20 @@ def gérer_profils():
 @app.route("/webmaster")
 def webmaster():
     return render_template("webmaster.html")
+
+@app.route("/logout") # menu se connecter @app.route("/connecter/<infoMsg>")
+def logout():
+    return redirect("/connecter")
+
+# traitement du formulaire d'authentification
+@app.route("/login", methods=["POST"])
+def login():
+    #f.sessionTest()
+    login = request.form['login']
+    password = request.form['mdp']
+    msg = f.verifAuth(login,password)
+    print(msg)
+    if "idUser" in session: # authentification réussie
+        return redirect("/index/authOK")
+    else: # echec authentification
+        return redirect("/connecter/authEchec")
