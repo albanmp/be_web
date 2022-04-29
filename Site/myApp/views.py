@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 from .controller import function as f
+import hashlib
 app = Flask(__name__)
 app.template_folder = "template"
 app.static_folder = "static"
@@ -59,3 +60,7 @@ def login():
         return redirect("/index/authOK")
     else: # echec authentification
         return redirect("/connecter/authEchec")
+
+mdp = hashlib.sha256(mdp.encode())
+mdpC = mdp.hexdigest() #mot de passe chiffré
+add_user(email, nom, prenom, statut, login, motPasse, avatar)

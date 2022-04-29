@@ -1,5 +1,6 @@
 from flask import session
 from ..model import bdd as bdd
+import hashlib
 
 def sessionTest():
     # déclaration des variables de sessions
@@ -42,3 +43,8 @@ def verifAuth(login, mdp):
         print("Failed verifAuth : {}".format(err))
         
     return info
+
+mdp = hashlib.sha256(mdp.encode())
+mdpC = mdp.hexdigest() #mot de passe chiffré
+
+add_user(email, nom, prenom, statut, login, motPasse, avatar)
