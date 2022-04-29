@@ -14,9 +14,9 @@ def index():
 def auth_login():
     return render_template("connecter.html")
 
-@app.route("/auth-register")
+@app.route("/compte")
 def auth_register():
-    return render_template("auth-register.html")
+    return render_template("compte.html")
 
 @app.route("/auth-forgot-password")
 def auth_forgot_password():
