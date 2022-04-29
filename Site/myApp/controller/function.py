@@ -46,5 +46,4 @@ def verifAuth(login, mdp):
 
 mdp = hashlib.sha256(mdp.encode())
 mdpC = mdp.hexdigest() #mot de passe chiffré
-
 add_user(email, nom, prenom, statut, login, motPasse, avatar)

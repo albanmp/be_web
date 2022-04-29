@@ -67,7 +67,7 @@ def del_membreData(idUser):
 
 #################################################################################
 #ajout d'un membre
-def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
+def add_userData(nom, prenom, mail, login, motPasse, statut, avatar):
     try:
         cnx, error = connexion()
         if error is not None: 
