@@ -17,8 +17,9 @@ def index():
 
 
 @app.route("/connecter")
-def auth_login():
-    return render_template("connecter.html")
+@app.route("/connecter/<infoMsg>")
+def connecter(infoMsg=''):
+    return render_template("connecter.html",info=infoMsg)
 
 @app.route("/compte")
 def auth_register():
