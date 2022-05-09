@@ -6,6 +6,7 @@ from ..config import DB_SERVER
 # connexion au serveur de la base de données
 
 def connexion():
+    print('connexion debut')
     cnx = ""
     try:
         cnx = mysql.connector.connect(**DB_SERVER)
@@ -18,6 +19,7 @@ def connexion():
             print("La Base de données n'existe pas.")
         else:
             print(err)
+    print('connexion fin')
     return cnx, error
     
 
@@ -105,10 +107,11 @@ def update_membreData(champ, idUser, newvalue):
 def verifAuthData(login, mdp):
     try:
         cnx, error = connexion()
+        print('a')
         if error is not None:
             return error, None
         cursor = cnx.cursor(dictionary=True)
-        sql = "SELECT * FROM identification WHERE login=%s and motPasse=%s"
+        sql = "SELECT * FROM Identification WHERE login=%s and motPasse=%s"
         param=(login, mdp)
         cursor.execute(sql, param)
         user = cursor.fetchone()

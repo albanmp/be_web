@@ -29,6 +29,7 @@ def verifAuth(login, mdp):
     session.clear() #suppression des sessions précédentes
     msg, user = bdd.verifAuthData(login, mdp)
     print(msg)
+    print(user)
     
     try:
         session["idUser"] = user["idUser"]
