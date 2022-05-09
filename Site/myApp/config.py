@@ -5,7 +5,7 @@ SECRET_KEY = "maCleSuperSecurisee"
  #Configuration du serveur web
 WEB_SERVER = {
    "host": "localhost",
-   "port":8080,
+   "port":8443,
 }
 #Configuration du serveur de BDD
 DB_SERVER = {
