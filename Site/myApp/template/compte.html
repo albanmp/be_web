@@ -23,42 +23,42 @@
                     </div>
                     <h1 class="auth-title">Créer un compte</h1>
 
-                    <form action="/">
+                    <form method="post" action="addMembre">
 
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Nom">
+                            <input type="text" name="nom" class="form-control form-control-xl" placeholder="Nom">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Pseudo">
+                            <input type="text" name="prenom" class="form-control form-control-xl" placeholder="Prénom">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Email">
+                            <input type="text" name="pseudo" class="form-control form-control-xl" placeholder="Pseudo">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="text" name="mail" class="form-control form-control-xl" placeholder="Email">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Mot de passe">
+                            <input type="password" name="mdp" class="form-control form-control-xl" placeholder="Mot de passe">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
 
-                        <select name="monSelect" aria-label="monSelect"> 
-                            <option selected disabled> 
-                                Statut
-                            </option>
-                            <option value="2">Administrateur</option> 
-                            <option value="4">Utilisateur</option>
-                        </select> 
-
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Créer le compte</button>
+                        <input type="radio" name="statut" value="1" checked /> Gestionnaire
+                        <input type="radio" name="statut" value="0"> Administrateur
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Créer le compte</button>
                     </form>
                 </div>
             </div>

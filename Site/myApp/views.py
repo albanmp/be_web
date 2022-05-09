@@ -12,8 +12,9 @@ app.static_folder = "static"
 app.config.from_object('myApp.config')
  
 @app.route("/")
-def index():
-    return render_template("index.html")
+@app.route("/<infoMsg>")
+def index(infoMsg = ''):
+    return render_template("index.html",info=infoMsg)
 
 
 @app.route("/connecter")
@@ -70,3 +71,19 @@ def login():
 #mdp = hashlib.sha256(mdp.encode())
 #mdpC = mdp.hexdigest() #mot de passe chiffré
 #add_user(email, nom, prenom, statut, login, motPasse, avatar)
+
+@app.route("/addMembre", methods=['POST'])
+def addMembre():
+    nom = request.form['nom']
+    prenom = request.form['prenom']
+    mail = request.form['mail']
+    login = request.form['pseudo']
+    motPasse = request.form['mdp']
+    statut = request.form['statut']
+    avatar = 1
+    msg = bdd.add_membreData(nom, prenom,
+    mail, login, motPasse, statut, avatar)
+    if msg == "addMembreOK":
+        return redirect("/addUserOK")
+    else:
+        return redirect("/addUserProblem")

@@ -26,6 +26,22 @@
             </div>
         </div>
         <div id="main">
+            {% if info and info=="authOK" %}
+                <div class="alert alert-success">
+                    <span class="badge badge-pill bg-success">Success</span>
+                    Authentification réussie.
+                </div>
+            {% endif %}
+            {% if info and info == "addUserOK" %}
+                <div class="alert alert-success text-center">
+                    Nouveau membre inséré
+                </div>
+            {% endif %}
+            {% if info and info == "addUserProblem" %}
+            <div class="alert alert-danger text-center">
+                Problème insertion du nouveau membre
+            </div>
+            {% endif %}
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>

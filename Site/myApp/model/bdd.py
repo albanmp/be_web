@@ -6,7 +6,6 @@ from ..config import DB_SERVER
 # connexion au serveur de la base de données
 
 def connexion():
-    print('connexion debut')
     cnx = ""
     try:
         cnx = mysql.connector.connect(**DB_SERVER)
@@ -19,7 +18,6 @@ def connexion():
             print("La Base de données n'existe pas.")
         else:
             print(err)
-    print('connexion fin')
     return cnx, error
     
 
@@ -69,22 +67,21 @@ def del_membreData(idUser):
 
 #################################################################################
 #ajout d'un membre
-def add_userData(nom, prenom, mail, login, motPasse, statut, avatar):
+def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
     try:
         cnx, error = connexion()
         if error is not None: 
             return error, None
         cursor = cnx.cursor()
-        sql = "INSERT INTO identification (nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s);"
-        param = (nom, prenom, mail, login, motPasse, statut, avatar)
+        sql = "INSERT INTO identification (idUser,nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        param = (2, nom, prenom, mail, login, motPasse, statut, avatar)
         cursor.execute(sql, param)
-        lastId = cursor.lastrowid  # récupère le dernier idUser, généré par le serveur sql
         cnx.commit()
         close_bd(cursor, cnx)
         msg = "addMembreOK"
     except mysql.connector.Error as err:
         msg = "Failed add membres data : {}".format(err)
-    return msg, lastId
+    return msg
 
 #################################################################################
 #modification d'une donnée dans la table membre
@@ -107,7 +104,6 @@ def update_membreData(champ, idUser, newvalue):
 def verifAuthData(login, mdp):
     try:
         cnx, error = connexion()
-        print('a')
         if error is not None:
             return error, None
         cursor = cnx.cursor(dictionary=True)
