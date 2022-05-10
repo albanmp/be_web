@@ -32,9 +32,11 @@
             <span>Authentication</span>
         </a>
         <ul class="submenu ">
-            <li class="submenu-item ">
-                <a href="/connecter">Se connecter</a>
-            </li>
+            {% if not (session["statut"]==0 or session["statut"]==1) %}
+                <li class="submenu-item ">
+                    <a href="/connecter">Se connecter</a>
+                </li>
+            {% endif %}
             {% if session["statut"]==0 %}
                 <li class="submenu-item ">
                     <a href="/compte">Créer un compte</a>

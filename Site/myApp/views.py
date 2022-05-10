@@ -87,3 +87,7 @@ def addMembre():
 def logout():
     session.clear() # suppression de la session
     return redirect("/connecter/logoutOK")
+
+@app.route("/calendrier")
+def calendrier():
+    return render_template("calendrier.html")
