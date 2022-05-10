@@ -11,20 +11,21 @@
 
                                     <!---->
     </article>
-    <li class="sidebar-item  ">
-        <a href="/aeroclubs" class='sidebar-link'>
-            <i class="bi bi-grid-1x2-fill"></i>
-            <span>Aéroclubs</span>
-        </a>
-    </li>
+    {% if session["statut"]==0 or session["statut"]==1 %}
+        <li class="sidebar-item  ">
+            <a href="/aeroclubs" class='sidebar-link'>
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Aéroclubs</span>
+            </a>
+        </li>
 
-    <li class="sidebar-item ">
-        <a href="/ui-file-uploader" class='sidebar-link'>
-            <i class="bi bi-cloud-arrow-up-fill"></i>
-            <span>Importer créneaux de vol</span>
-        </a>
-    </li>
-    
+        <li class="sidebar-item ">
+            <a href="/ui-file-uploader" class='sidebar-link'>
+                <i class="bi bi-cloud-arrow-up-fill"></i>
+                <span>Importer créneaux de vol</span>
+            </a>
+        </li>
+    {% endif %}
     <li class="sidebar-item  has-sub">
         <a href="#" class='sidebar-link'>
             <i class="bi bi-person-badge-fill"></i>
@@ -34,15 +35,19 @@
             <li class="submenu-item ">
                 <a href="/connecter">Se connecter</a>
             </li>
-            <li class="submenu-item ">
-                <a href="/compte">Créer un compte</a>
-            </li>
-            <li class="submenu-item ">
-                <a href="/auth-forgot-password">Mot de passe oublié</a>
-            </li>
-            <li class="submenu-item ">
-                <a href="/gérer-profils">Gérer les profils</a>
-            </li>
+            {% if session["statut"]==0 %}
+                <li class="submenu-item ">
+                    <a href="/compte">Créer un compte</a>
+                </li>
+                <li class="submenu-item ">
+                    <a href="/gérer-profils">Gérer les profils</a>
+                </li>
+            {% endif %}
+            {% if session["statut"] == 0 or session["statut"] == 1 %}
+                <li class="submenu-item ">
+                    <a href="/logout">Se déconnecter</a>
+                </li>
+            {% endif %}
         </ul>
     </li>
 

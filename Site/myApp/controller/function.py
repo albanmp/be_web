@@ -40,7 +40,7 @@ def verifAuth(login, mdp):
         session["motPasse"] = user["motPasse"]
         session["statut"] = user["statut"]
         session["avatar"] = user["avatar"]
-
+        print(session["statut"])
         info = msg
     except TypeError as err:
         info="authEchec"

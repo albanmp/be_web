@@ -50,11 +50,6 @@ def gérer_profils():
 def webmaster():
     return render_template("webmaster.html")
 
-@app.route("/logout") # menu se connecter @app.route("/connecter/<infoMsg>")
-def logout():
-    session.clear()
-    return redirect("/connecter/logoutOK")
-
 # traitement du formulaire d'authentification
 @app.route("/login", methods=["POST"])
 def login():
@@ -87,3 +82,8 @@ def addMembre():
         return redirect("/addUserOK")
     else:
         return redirect("/addUserProblem")
+
+@app.route("/logout") # menu se déconnecter
+def logout():
+    session.clear() # suppression de la session
+    return redirect("/connecter/logoutOK")
