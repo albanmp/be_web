@@ -73,16 +73,16 @@ def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
         if error is not None: 
             return error, None
         cursor = cnx.cursor()
-        sql = "INSERT INTO identification (idUser,nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
-        param = (2, nom, prenom, mail, login, motPasse, statut, avatar)
+        sql = "INSERT INTO identification (nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+        param = (nom, prenom, mail, login, motPasse, statut, avatar)
         cursor.execute(sql, param)
-        lastId = cursor.lastrowid
         cnx.commit()
         close_bd(cursor, cnx)
         msg = "addMembreOK"
     except mysql.connector.Error as err:
         msg = "Failed add membres data : {}".format(err)
-    return msg, lastId
+        print(msg)
+    return msg
 
 #################################################################################
 #modification d'une donnée dans la table membre
