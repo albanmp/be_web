@@ -1,19 +1,26 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, request, redirect, session, jsonify
+from .model import bdd as bdd
 from .controller import function as f
-import hashlib
+from werkzeug.utils import secure_filename
+
+
+
 app = Flask(__name__)
+
 app.template_folder = "template"
 app.static_folder = "static"
 app.config.from_object('myApp.config')
  
 @app.route("/")
-def index():
-    return render_template("index.html")
+@app.route("/<infoMsg>")
+def index(infoMsg = ''):
+    return render_template("index.html",info=infoMsg)
 
 
 @app.route("/connecter")
-def auth_login():
-    return render_template("connecter.html")
+@app.route("/connecter/<infoMsg>")
+def connecter(infoMsg=''):
+    return render_template("connecter.html",info=infoMsg)
 
 @app.route("/compte")
 def auth_register():
@@ -43,11 +50,6 @@ def gérer_profils():
 def webmaster():
     return render_template("webmaster.html")
 
-@app.route("/logout") # menu se connecter @app.route("/connecter/<infoMsg>")
-def logout():
-    session.clear()
-    return redirect("/connecter/logoutOK")
-
 # traitement du formulaire d'authentification
 @app.route("/login", methods=["POST"])
 def login():
@@ -57,10 +59,35 @@ def login():
     msg = f.verifAuth(login,password)
     print(msg)
     if "idUser" in session: # authentification réussie
-        return redirect("/index/authOK")
+        return redirect("/authOK")
     else: # echec authentification
         return redirect("/connecter/authEchec")
 
-mdp = hashlib.sha256(mdp.encode())
-mdpC = mdp.hexdigest() #mot de passe chiffré
-add_user(email, nom, prenom, statut, login, motPasse, avatar)
+#mdp = hashlib.sha256(mdp.encode())
+#mdpC = mdp.hexdigest() #mot de passe chiffré
+#add_user(email, nom, prenom, statut, login, motPasse, avatar)
+
+@app.route("/addMembre", methods=['POST'])
+def addMembre():
+    nom = request.form['nom']
+    prenom = request.form['prenom']
+    mail = request.form['mail']
+    login = request.form['pseudo']
+    motPasse = request.form['mdp']
+    statut = request.form['statut']
+    avatar = 1
+    msg = bdd.add_membreData(nom, prenom,
+    mail, login, motPasse, statut, avatar)
+    if msg == "addMembreOK":
+        return redirect("/addUserOK")
+    else:
+        return redirect("/addUserProblem")
+
+@app.route("/logout") # menu se déconnecter
+def logout():
+    session.clear() # suppression de la session
+    return redirect("/connecter/logoutOK")
+
+@app.route("/calendrier")
+def calendrier():
+    return render_template("calendrier.html")

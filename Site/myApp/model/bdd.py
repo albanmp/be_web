@@ -67,7 +67,7 @@ def del_membreData(idUser):
 
 #################################################################################
 #ajout d'un membre
-def add_userData(nom, prenom, mail, login, motPasse, statut, avatar):
+def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
     try:
         cnx, error = connexion()
         if error is not None: 
@@ -76,13 +76,13 @@ def add_userData(nom, prenom, mail, login, motPasse, statut, avatar):
         sql = "INSERT INTO identification (nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s);"
         param = (nom, prenom, mail, login, motPasse, statut, avatar)
         cursor.execute(sql, param)
-        lastId = cursor.lastrowid  # récupère le dernier idUser, généré par le serveur sql
         cnx.commit()
         close_bd(cursor, cnx)
         msg = "addMembreOK"
     except mysql.connector.Error as err:
         msg = "Failed add membres data : {}".format(err)
-    return msg, lastId
+        print(msg)
+    return msg
 
 #################################################################################
 #modification d'une donnée dans la table membre
@@ -108,7 +108,7 @@ def verifAuthData(login, mdp):
         if error is not None:
             return error, None
         cursor = cnx.cursor(dictionary=True)
-        sql = "SELECT * FROM identification WHERE login=%s and motPasse=%s"
+        sql = "SELECT * FROM Identification WHERE login=%s and motPasse=%s"
         param=(login, mdp)
         cursor.execute(sql, param)
         user = cursor.fetchone()
@@ -146,4 +146,3 @@ def saveDataFromFile(data):
     except mysql.connector.Error as err:
         msg = "Failed saveDataFromFile data : {}".format(err)
     return msg
-    

@@ -29,14 +29,18 @@ def verifAuth(login, mdp):
     session.clear() #suppression des sessions précédentes
     msg, user = bdd.verifAuthData(login, mdp)
     print(msg)
+    print(user)
     
     try:
         session["idUser"] = user["idUser"]
         session["nom"] = user["nom"]
         session["prenom"] = user["prenom"]
         session["mail"] = user["mail"]
+        session["login"] = user["login"]
+        session["motPasse"] = user["motPasse"]
         session["statut"] = user["statut"]
         session["avatar"] = user["avatar"]
+        print(session["statut"])
         info = msg
     except TypeError as err:
         info="authEchec"
@@ -44,6 +48,6 @@ def verifAuth(login, mdp):
         
     return info
 
-mdp = hashlib.sha256(mdp.encode())
-mdpC = mdp.hexdigest() #mot de passe chiffré
-add_userData(email, nom, prenom, statut, login, motPasse, avatar)
+#mdp = hashlib.sha256(mdp.encode())
+#mdpC = mdp.hexdigest() #mot de passe chiffré
+#add_user(email, nom, prenom, statut, login, motPasse, avatar)
