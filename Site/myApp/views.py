@@ -76,7 +76,7 @@ def addMembre():
     motPasse = request.form['mdp']
     statut = request.form['statut']
     avatar = 1
-    msg = bdd.add_membreData(nom, prenom,
+    msg, lastId = bdd.add_membreData(nom, prenom,
     mail, login, motPasse, statut, avatar)
     if msg == "addMembreOK":
         return redirect("/addUserOK")
