@@ -3,6 +3,7 @@
 
 <head>
     {%include('layout/head.html')%}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-edi table/css/bootstrap-editable.css" />
 </head>
 
 <body>
@@ -67,11 +68,13 @@
                                     </a>
                                 </td>
                                 <td><img src="/static/img/avatar/{{ user.avatar }}"/></td>
-                                <td>{{ user.nom }}</td>
+                                
+                                <td class='modif' data-url = 'updateMembre' data-name= 'nom'data-pk='{{user.idUser}}' > 
+                                    {{ user.nom }}</td>
                                 <td>{{ user.prenom }}</td>
                                 <td>{{ user.mail }}</td>
                                 <td>{{ user.login }}</td>
-                                <td>
+                                <td class='modifSelect' data-url = 'updateMembre' data-name= 'statut' data-pk='{{user.idUser}}'>
                                     {% if user.statut == 0 %}
                                         Administrateur
                                     {% else %}
@@ -101,6 +104,19 @@
     <script src="/static/js/bootstrap.bundle.min.js"></script>
 
     <script src="/static/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstr ap-editable.min.js"></script>
+    <script>
+        $.fn.editable.defaults.mode = 'inline'
+        $(".modif").editable()
+        $(".modifSelect").editable({
+            type: 'select',
+            source: [
+                { value: 1, text: 'Gestionnaire' },
+                { value: 0, text: 'Administrateur' }
+            ]
+    })
+    </script>
 </body>
 
 </html>

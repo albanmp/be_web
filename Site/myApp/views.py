@@ -100,3 +100,12 @@ def suppMembre():
         return redirect("/gérer-profils/delOK")
     else:
         return redirect("/gérer-profils/delProblem")
+    
+@app.route("/updateMembre", methods=['POST'])
+def updateMembre():
+    idUser = request.form['pk']
+    champ = request.form['name']
+    newvalue = request.form['value']
+    msg = bdd.update_membreData(champ, idUser, newvalue)
+    print(msg)
+    return msg
