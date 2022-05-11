@@ -43,8 +43,11 @@ def component_dropdown():
     return render_template("component-dropdown.html")
 
 @app.route("/gérer-profils")
-def gérer_profils():
-    return render_template("gérer-profils.html")
+@app.route("/gérer-profils/<infoMsg>")
+def gérer_profils(infoMsg=''):
+    msg, listeMembre = bdd.get_membreData()
+    print(msg)
+    return render_template("gérer-profils.html",liste = listeMembre, infoErr = msg, info = infoMsg)
 
 @app.route("/webmaster")
 def webmaster():
@@ -87,3 +90,13 @@ def addMembre():
 def logout():
     session.clear() # suppression de la session
     return redirect("/connecter/logoutOK")
+
+@app.route("/suppMembre")
+def suppMembre():
+    idUser = request.args.get("userDel")
+    msg = bdd.del_membreData(idUser)
+    print(msg)
+    if msg == "suppMembreOK":
+        return redirect("/gérer-profils/delOK")
+    else:
+        return redirect("/gérer-profils/delProblem")
