@@ -109,3 +109,7 @@ def updateMembre():
     msg = bdd.update_membreData(champ, idUser, newvalue)
     print(msg)
     return msg
+
+@app.route("/calendrier")
+def calendrier():
+    return render_template("calendrier.html")
