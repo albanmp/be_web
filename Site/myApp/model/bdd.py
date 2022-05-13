@@ -5,13 +5,14 @@ from ..config import DB_SERVER
 ###################################################################################
 # connexion au serveur de la base de données
 
+
 def connexion():
     cnx = ""
     try:
         cnx = mysql.connector.connect(**DB_SERVER)
-        error=None
+        error = None
     except mysql.connector.Error as err:
-        error=err
+        error = err
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print("Mauvais login ou mot de passe")
         elif err.errno == errorcode.ER_BAD_DB_ERROR:
@@ -19,7 +20,7 @@ def connexion():
         else:
             print(err)
     return cnx, error
-    
+
 
 #################################################################################
 # fermeture de la connexion au serveur de la base de données
@@ -30,11 +31,13 @@ def close_bd(cursor, cnx):
 
 #################################################################################
 # Retourne toutes les données de la table membres
+
+
 def get_membreData():
-    
+
     try:
         cnx, error = connexion()
-        if error is not None: 
+        if error is not None:
             return error, None
         cursor = cnx.cursor(dictionary=True)
         sql = "SELECT * FROM identification"
@@ -48,11 +51,13 @@ def get_membreData():
     return msg, listeMembre
 
 #################################################################################
-#suppression d'un membre
+# suppression d'un membre
+
+
 def del_membreData(idUser):
     try:
         cnx, error = connexion()
-        if error is not None: 
+        if error is not None:
             return error, None
         cursor = cnx.cursor()
         sql = "DELETE FROM identification WHERE idUser=%s;"
@@ -66,11 +71,13 @@ def del_membreData(idUser):
     return msg
 
 #################################################################################
-#ajout d'un membre
+# ajout d'un membre
+
+
 def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
     try:
         cnx, error = connexion()
-        if error is not None: 
+        if error is not None:
             return error, None
         cursor = cnx.cursor()
         sql = "INSERT INTO identification (nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s);"
@@ -85,11 +92,13 @@ def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
     return msg
 
 #################################################################################
-#modification d'une donnée dans la table membre
+# modification d'une donnée dans la table membre
+
+
 def update_membreData(champ, idUser, newvalue):
     try:
         cnx, error = connexion()
-        if error is not None: 
+        if error is not None:
             return error, None
         cursor = cnx.cursor()
         sql = "UPDATE identification SET "+champ+" = %s WHERE idUser = %s;"
@@ -102,6 +111,7 @@ def update_membreData(champ, idUser, newvalue):
         msg = "Failed update membres data : {}".format(err)
     return msg
 
+
 def verifAuthData(login, mdp):
     try:
         cnx, error = connexion()
@@ -109,7 +119,7 @@ def verifAuthData(login, mdp):
             return error, None
         cursor = cnx.cursor(dictionary=True)
         sql = "SELECT * FROM Identification WHERE login=%s and motPasse=%s"
-        param=(login, mdp)
+        param = (login, mdp)
         cursor.execute(sql, param)
         user = cursor.fetchone()
         close_bd(cursor, cnx)
@@ -120,7 +130,9 @@ def verifAuthData(login, mdp):
     return msg, user
 
 ##########################################################################
-###  enregistrement des données provenant du fichier excel
+# enregistrement des données provenant du fichier excel
+
+
 def saveDataFromFile(data):
     try:
         cnx, error = connexion()
@@ -133,11 +145,12 @@ def saveDataFromFile(data):
         # insertion des nouvelles données
         for d in data:
             sql = "INSERT INTO identification (idUser, nom, prenom, mail, login, motPasse, statut, avatar) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s); ;"
-            param = (d['nom'], d['prenom'], d['mail'], d['login'], d['motPasse'], d['statut'], d['avatar'])
+            param = (d['nom'], d['prenom'], d['mail'], d['login'],
+                     d['motPasse'], d['statut'], d['avatar'])
             cursor.execute(sql, param)
             cnx.commit()
-        #changement valeur autoincrement
-        sql2="ALTER TABLE identification AUTO_INCREMENT=%s;" 
+        # changement valeur autoincrement
+        sql2 = "ALTER TABLE identification AUTO_INCREMENT=%s;"
         param2 = (len(data),)
         cursor.execute(sql2, param2)
         cnx.commit()

@@ -15,13 +15,13 @@
 <body>
     <div id="auth">
         {% if info and info=="authEchec" %}
-            <div class="alert alert-danger text-center">Authentification refusée.</div>
+        <div class="alert alert-danger text-center">Authentification refusée.</div>
         {% endif %}
 
         {% if info and info=="logoutOK" %}
-            <div class="alert alert-primary text-center">
-                Vous êtes déconnecté. Merci de votre visite.
-            </div>
+        <div class="alert alert-primary text-center">
+            Vous êtes déconnecté. Merci de votre visite.
+        </div>
         {% endif %}
         <div class="row h-100">
             <div class="col-lg-5 col-12">
@@ -40,7 +40,8 @@
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" name ="mdp" class="form-control form-control-xl" placeholder="Password">
+                            <input type="password" name="mdp" class="form-control form-control-xl"
+                                placeholder="Password">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>

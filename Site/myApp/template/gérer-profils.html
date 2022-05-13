@@ -3,7 +3,8 @@
 
 <head>
     {%include('layout/head.html')%}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-edi table/css/bootstrap-editable.css" />
+    <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-edi table/css/bootstrap-editable.css" />
 </head>
 
 <body>
@@ -34,57 +35,57 @@
             </header>
 
             {% if info and info == "delOK" %}
-                <div class="alert alert-success text-center">
-                    L'utilisateur a bien été supprimé
-                </div>
+            <div class="alert alert-success text-center">
+                L'utilisateur a bien été supprimé
+            </div>
             {% endif %}
             {% if info and info == "delProblem" %}
-                <div class="alert alert-danger text-center">
-                    Problème avec la suppression de l'utilisateur
-                </div>
+            <div class="alert alert-danger text-center">
+                Problème avec la suppression de l'utilisateur
+            </div>
             {% endif %}
 
             {% if liste %}
-                {# liste #}
+            {# liste #}
 
-                <table class="table">
-                    <thead>
-                        <tr> 
-                            <th>Supp</th>
-                            <th>Avatar</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Mail</th>
-                            <th>Login</th>
-                            <th>Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in liste %}
-                            <tr>
-                                <td>
-                                    <a href="/suppMembre?userDel={{user.idUser}}" class='sidebar-link'>
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                </td>
-                                <td><img src="/static/img/avatar/{{ user.avatar }}"/></td>
-                                
-                                <td class='modif' data-url = 'updateMembre' data-name= 'nom'data-pk='{{user.idUser}}' > 
-                                    {{ user.nom }}</td>
-                                <td>{{ user.prenom }}</td>
-                                <td>{{ user.mail }}</td>
-                                <td>{{ user.login }}</td>
-                                <td class='modifSelect' data-url = 'updateMembre' data-name= 'statut' data-pk='{{user.idUser}}'>
-                                    {% if user.statut == 0 %}
-                                        Administrateur
-                                    {% else %}
-                                        Gestionnaire
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Supp</th>
+                        <th>Avatar</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Mail</th>
+                        <th>Login</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in liste %}
+                    <tr>
+                        <td>
+                            <a href="/suppMembre?userDel={{user.idUser}}" class='sidebar-link'>
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                        <td><img src="/static/img/avatar/{{ user.avatar }}" /></td>
+
+                        <td class='modif' data-url='updateMembre' data-name='nom' data-pk='{{user.idUser}}'>
+                            {{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.mail }}</td>
+                        <td>{{ user.login }}</td>
+                        <td class='modifSelect' data-url='updateMembre' data-name='statut' data-pk='{{user.idUser}}'>
+                            {% if user.statut == 0 %}
+                            Administrateur
+                            {% else %}
+                            Gestionnaire
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
             {% endif %}
 
             <footer>
@@ -105,7 +106,8 @@
 
     <script src="/static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstr ap-editable.min.js"></script>
+    <script
+        src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstr ap-editable.min.js"></script>
     <script>
         $.fn.editable.defaults.mode = 'inline'
         $(".modif").editable()
@@ -115,7 +117,7 @@
                 { value: 1, text: 'Gestionnaire' },
                 { value: 0, text: 'Administrateur' }
             ]
-    })
+        })
     </script>
 </body>
 
