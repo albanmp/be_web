@@ -88,7 +88,7 @@ def addMembre():
     login = request.form['pseudo']
     motPasse = request.form['mdp']
     statut = request.form['statut']
-    avatar = 1
+    avatar = request.form['avatar']
     msg = bdd.add_membreData(nom, prenom,
                              mail, login, motPasse, statut, avatar)
     if msg == "addMembreOK":
