@@ -127,3 +127,8 @@ def updateMembre():
 @app.route("/calendrier")
 def calendrier():
     return render_template("calendrier.html")
+
+@app.route("/load_events")
+def load_events():
+    print((bdd.get_eventsData()[1][0]))
+    return bdd.get_eventsData()[1][0]

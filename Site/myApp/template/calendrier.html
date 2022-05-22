@@ -33,10 +33,19 @@
         <div class="dhx_cal_data"></div>
     </div>
     <script>
-        scheduler.init('scheduler_here', new Date(2019, 0, 20), "week");
-        scheduler.load("data/api.php");
+        scheduler.init("scheduler_here", new Date(2019, 0, 20), "week");
+        scheduler.setLoadMode("day");
+        
+        // load data from the backend
+        scheduler.load("/load_events"); 
+        
+        // send updates to the backend
+        var dp = new dataProcessor("/data/api.php"); 
+        dp.init(scheduler);  
+        // set data exchange mode
+        dp.setTransactionMode("JSON");
 
-        var dp = new dataProcessor("data/api.php");
+        var dp = new dataProcessor("/data/api.php");
         dp.init(scheduler);
         dp.setTransactionMode("JSON"); // use to transfer data with JSON
     </script>

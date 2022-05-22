@@ -159,3 +159,26 @@ def saveDataFromFile(data):
     except mysql.connector.Error as err:
         msg = "Failed saveDataFromFile data : {}".format(err)
     return msg
+
+#################################################################################
+# Retourne toutes les données de la table events
+
+
+def get_eventsData():
+    
+    print('ok ca marche')
+
+    try:
+        cnx, error = connexion()
+        if error is not None:
+            return error, None
+        cursor = cnx.cursor(dictionary=True)
+        sql = "SELECT * FROM events"
+        cursor.execute(sql)
+        listeEvents = cursor.fetchall()
+        close_bd(cursor, cnx)
+        msg = "OKmembres"
+    except mysql.connector.Error as err:
+        listeEvents = None
+        msg = "Failed get events data : {}".format(err)
+    return msg, listeEvents
