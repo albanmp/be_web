@@ -130,10 +130,5 @@ def calendrier():
 
 @app.route("/load_events",methods = ["POST"])
 def load_events():
-    data1 = bdd.get_eventsData()[1]
-    data = []
-    data.append({"text":"meeting","start_date":"2022-05-23 08:00","end_date":"2022-05-23 10:00","color":"blue"})
-    data.append({"text":"meeting2","start_date":"2022-05-22 08:00","end_date":"2022-05-22 10:00","color":"red"})
-    data.append({"text":"meeting3","start_date":"2022-05-24 12:00","end_date":"2022-05-24 17:00","color":"green"})
-    print(data1)
-    return jsonify(data1)
+    data = bdd.get_eventsData()[1]
+    return jsonify(data)
