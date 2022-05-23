@@ -37,17 +37,40 @@
         scheduler.setLoadMode("day");
         
         // load data from the backend
-        scheduler.load("/load_events"); 
-        
-        // send updates to the backend
-        var dp = new dataProcessor("/data/api.php"); 
-        dp.init(scheduler);  
-        // set data exchange mode
-        dp.setTransactionMode("JSON");
+        fetch('/load_events', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8'},
+            body: new URLSearchParams(),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+         
+        console.log(data)
+        scheduler.parse(data,"json")
+    })
 
-        var dp = new dataProcessor("/data/api.php");
-        dp.init(scheduler);
-        dp.setTransactionMode("JSON"); // use to transfer data with JSON
+        .catch((err) => console.log(err))
+
+        scheduler.attachEvent("onEventCreated", function(id,e){
+            //any custom logic here
+            //e.text e.start_date e.end_date e.color
+            fetch('/load_events', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json; charset=UTF-8'},
+                body: new URLSearchParams({text:e.text,start_date:e.start_date,}),
+            })
+    
+            .catch((err) => console.log(err))
+        });
+
+        scheduler.attachEvent("onEventDeleted", function(id,ev){
+            // custom code
+        });
+
+        scheduler.attachEvent("onEventChanged", function(id,ev){
+            //any custom logic here
+        });
+        
     </script>
 </body>
 

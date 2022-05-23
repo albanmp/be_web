@@ -165,9 +165,6 @@ def saveDataFromFile(data):
 
 
 def get_eventsData():
-    
-    print('ok ca marche')
-
     try:
         cnx, error = connexion()
         if error is not None:
@@ -181,4 +178,7 @@ def get_eventsData():
     except mysql.connector.Error as err:
         listeEvents = None
         msg = "Failed get events data : {}".format(err)
+    for event in listeEvents:
+        event['start_date'] = str(event['start_date'].year)+"-"+str(event['start_date'].month)+"-"+str(event['start_date'].day)+" "+str(event['start_date'].hour)+":"+str(event['start_date'].minute)
+        event['end_date'] = str(event['end_date'].year)+"-"+str(event['end_date'].month)+"-"+str(event['end_date'].day)+" "+str(event['end_date'].hour)+":"+str(event['end_date'].minute)
     return msg, listeEvents
