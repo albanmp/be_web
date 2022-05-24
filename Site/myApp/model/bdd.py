@@ -184,7 +184,7 @@ def get_eventsData():
     return msg, listeEvents
 
 
-def add_membreData(text, start_date, end_date):
+def add_eventData(text, start_date, end_date):
     try:
         cnx, error = connexion()
         if error is not None:

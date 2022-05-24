@@ -40,7 +40,8 @@ def ui_file_uploader():
 
 @app.route("/aeroclubs")
 def aeroclubs():
-    return render_template("aeroclubs.html")
+    msg, listeMembre = bdd.get_membreData()
+    return render_template("aeroclubs.html", liste=listeMembre, infoErr=msg)
 
 
 @app.route("/component-dropdown")
