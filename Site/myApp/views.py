@@ -135,5 +135,12 @@ def load_events():
     return jsonify(data)
 
 @app.route("/create_events",methods = ["POST"])
-def create_events(infoMsg=""):
-    return redirect("/calendrier")
+def create_events():
+    text = request.body['text']
+    start_date = request.body['start_date']
+    end_date = request.body['end_date']
+    msg = bdd.add_membreData(text, start_date, end_date)
+    if msg == "addEventOK":
+        return redirect("/calendrier")
+    else:
+        return redirect("/calendrier")
