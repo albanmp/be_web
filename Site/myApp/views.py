@@ -132,3 +132,7 @@ def calendrier():
 def load_events():
     data = bdd.get_eventsData()[1]
     return jsonify(data)
+
+@app.route("/create_events",methods = ["POST"])
+def create_events(infoMsg=""):
+    return redirect("/calendrier")

@@ -19,6 +19,16 @@
 </head>
 
 <body>
+    {% if info and info == "addEventOK" %}
+        <div class="alert alert-success text-center">
+            Nouveau membre inséré
+        </div>
+    {% endif %}
+    {% if info and info == "addEventProblem" %}
+        <div class="alert alert-danger text-center">
+            Problème insertion du nouveau membre
+        </div>
+    {% endif %}
     <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
         <div class="dhx_cal_navline">
             <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -51,13 +61,14 @@
 
         .catch((err) => console.log(err))
 
+        //ajouter evenements dans la BDD
         scheduler.attachEvent("onEventCreated", function(id,e){
             //any custom logic here
             //e.text e.start_date e.end_date e.color
-            fetch('/load_events', {
+            fetch('/create_events', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json; charset=UTF-8'},
-                body: new URLSearchParams({text:e.text,start_date:e.start_date,}),
+                body: new URLSearchParams({text:e.text,start_date:e.start_date,end_date:e.end_date}),
             })
     
             .catch((err) => console.log(err))

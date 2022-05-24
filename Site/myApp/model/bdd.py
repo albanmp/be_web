@@ -182,3 +182,21 @@ def get_eventsData():
         event['start_date'] = str(event['start_date'].year)+"-"+str(event['start_date'].month)+"-"+str(event['start_date'].day)+" "+str(event['start_date'].hour)+":"+str(event['start_date'].minute)
         event['end_date'] = str(event['end_date'].year)+"-"+str(event['end_date'].month)+"-"+str(event['end_date'].day)+" "+str(event['end_date'].hour)+":"+str(event['end_date'].minute)
     return msg, listeEvents
+
+
+def add_membreData(text, start_date, end_date):
+    try:
+        cnx, error = connexion()
+        if error is not None:
+            return error, None
+        cursor = cnx.cursor()
+        sql = "INSERT INTO events (start_date, end_date, text) VALUES (%s, %s, %s);"
+        param = (start_date, end_date, text)
+        cursor.execute(sql, param)
+        cnx.commit()
+        close_bd(cursor, cnx)
+        msg = "addEventOK"
+    except mysql.connector.Error as err:
+        msg = "Failed add event data : {}".format(err)
+        print(msg)
+    return msg
