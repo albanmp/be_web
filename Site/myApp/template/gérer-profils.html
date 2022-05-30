@@ -3,7 +3,7 @@
 
 <head>
     {%include('layout/head.html')%}
-    <link rel="stylesheet" href="/static/vendors/bootstrap3-editable-1/bootstrap3-editable/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="/static/vendors/bootstrap3-editable/css/bootstrap-editable.css" />
 </head>
 
 <body>
@@ -69,9 +69,9 @@
                         </td>
                         <td><img src="/static/images/avatar/{{ user.avatar }}" width = 50 height = 50/></td>
                         <td class='modif' data-url='updateMembre' data-name='nom' data-pk='{{user.idUser}}'>{{ user.nom }}</td>
-                        <td>{{ user.prenom }}</td>
-                        <td>{{ user.mail }}</td>
-                        <td>{{ user.login }}</td>
+                        <td class='modif' data-url='updateMembre' data-name='prenom' data-pk='{{user.idUser}}'>{{ user.prenom }}</td>
+                        <td class='modif' data-url='updateMembre' data-name='mail' data-pk='{{user.idUser}}'>{{ user.mail }}</td>
+                        <td class='modif' data-url='updateMembre' data-name='login' data-pk='{{user.idUser}}'>{{ user.login }}</td>
                         <td class='modifSelect' data-url = 'updateMembre' data-name= 'statut' data-pk='{{user.idUser}}'>
                             {% if user.statut == 0 %}
                                 Administrateur
@@ -94,9 +94,6 @@
     <script src="/static/js/bootstrap.bundle.min.js"></script>
 
     <script src="/static/js/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script
-        src="/static/vendors/bootstrap3-editable-1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script>
         $.fn.editable.defaults.mode = 'inline'
         $(".modif").editable()
@@ -109,7 +106,7 @@
         })
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="/static/vendors/bootstrap3-editable-1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="/static/vendors/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script>
         $.fn.editable.defaults.mode = 'inline'
         $(".modif").editable()
