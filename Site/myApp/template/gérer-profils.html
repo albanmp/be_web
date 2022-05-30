@@ -73,9 +73,9 @@
 
                          
                         <td class='modif' data-url = 'updateMembre' data-name= 'nom'data-pk='{{user.idUser}}' > {{ user.nom }}</td>
-                        <td>{{ user.prenom }}</td>
-                        <td>{{ user.mail }}</td>
-                        <td>{{ user.login }}</td>
+                        <td class='modif' data-url = 'updateMembre' data-name= 'prenom'data-pk='{{user.idUser}}' > {{ user.prenom }}</td>
+                        <td class='modif' data-url = 'updateMembre' data-name= 'mail'data-pk='{{user.idUser}}' > {{ user.mail }}</td>
+                        <td class='modif' data-url = 'updateMembre' data-name= 'login'data-pk='{{user.idUser}}' > {{ user.login }}</td>
                         <td>
                             {% if user.statut == 0 %}
                             Administrateur
