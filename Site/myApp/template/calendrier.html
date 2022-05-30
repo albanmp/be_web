@@ -65,13 +65,13 @@
         scheduler.attachEvent("onEventCreated", function(id,e){
             //any custom logic here
             //e.text e.start_date e.end_date e.color
-            fetch('/create_events', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json; charset=UTF-8'},
-                body: new URLSearchParams({text:e.text,start_date:e.start_date,end_date:e.end_date}),
-            })
-    
-            .catch((err) => console.log(err))
+        fetch('/create_events', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8'},
+            body: new URLSearchParams({text:e.text,start_date:e.start_date,end_date:e.end_date}),
+        })
+
+        .catch((err) => console.log(err))
         });
 
         scheduler.attachEvent("onEventDeleted", function(id,ev){
