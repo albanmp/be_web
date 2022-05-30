@@ -74,10 +74,12 @@
         .catch((err) => console.log(err))
         });
 
+        //supprimer evenement de la BDD
         scheduler.attachEvent("onEventDeleted", function(id,ev){
             // custom code
         });
 
+        //modifier evenement de la BDD
         scheduler.attachEvent("onEventChanged", function(id,ev){
             //any custom logic here
         });

@@ -5,7 +5,7 @@
     {%include('layout/head.html')%}
     <link rel="stylesheet" href="/static/vendors/bootstrap3-editable-1/bootstrap3-editable/css/bootstrap-editable.css" />
     <link rel="stylesheet"
-        href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-edi table/css/bootstrap-editable.css" />
+        href="/static/vendors/bootstrap3-editable-1/bootstrap3-editable/css/bootstrap-editable.css" />
 </head>
 
 <body>
@@ -76,11 +76,11 @@
                         <td class='modif' data-url = 'updateMembre' data-name= 'prenom'data-pk='{{user.idUser}}' > {{ user.prenom }}</td>
                         <td class='modif' data-url = 'updateMembre' data-name= 'mail'data-pk='{{user.idUser}}' > {{ user.mail }}</td>
                         <td class='modif' data-url = 'updateMembre' data-name= 'login'data-pk='{{user.idUser}}' > {{ user.login }}</td>
-                        <td>
+                        <td class='modifSelect' data-url = 'updateMembre' data-name= 'statut' data-pk='{{user.idUser}}'>
                             {% if user.statut == 0 %}
                                 Administrateur
                             {% else %}
-                                Gestionnaire
+                                 Gestionnaire
                             {% endif %}
                         </td>
                     </tr>
@@ -100,7 +100,7 @@
     <script src="/static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script
-        src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstr ap-editable.min.js"></script>
+        src="/static/vendors/bootstrap3-editable-1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script>
         $.fn.editable.defaults.mode = 'inline'
         $(".modif").editable()
