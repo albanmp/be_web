@@ -98,8 +98,6 @@ def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
 def update_membreData(champ, idUser, newvalue):
     try:
         cnx, error = connexion()
-        if error is not None:
-            return error, None
         cursor = cnx.cursor()
         sql = "UPDATE identification SET "+champ+" = %s WHERE idUser = %s;"
         param = (newvalue, idUser)
