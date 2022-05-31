@@ -90,8 +90,21 @@
         });
 
         //modifier evenement de la BDD
-        scheduler.attachEvent("onEventChanged", function (id, ev) {
-            //any custom logic here
+        scheduler.attachEvent("onEventChanged", function (id, e) {
+            console.log(e, id)
+
+            let obj = scheduler.getEvent(id)
+
+            var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i")
+
+
+            fetch('/update_events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: new URLSearchParams({ "id": id, "text": obj.text, "start_date": formatFunc(obj.start_date), "end_date": formatFunc(obj.end_date) }),
+            })
+
+                .catch((err) => console.log(err))
         });
 
     </script>

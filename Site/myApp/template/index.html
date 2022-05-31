@@ -51,38 +51,42 @@
             <div class="page-heading">
                 <h3>Bienvenue</h3>
                 {% if not session['idUser'] %} {# si la session existe #}
-                    <h5>Connectez vous pour réserver des créneaux de vol</h5>
+                <h5>Connectez vous pour réserver des créneaux de vol</h5>
                 {% endif %}
-             <div class="row">
-                {% if session['idUser'] %} {# si la session existe #}
-                <div class="col-12 col-lg-3">
-                           <div class="card">
-                               <div class="card-body py-4 px-5">
-                                   <div class="d-flex align-items-center">
-                                       <div class="avatar avatar-xl">
-                                           <img class="rounded-circle ms-2" src="/static/images/avatar/{{session['avatar']}}" alt="Avatar">
-                                       </div>
-                <div class="ms-3 name">
-                                           <h5 class="font-bold">{{ session['prenom'] }} {{ session['nom'] }}</h5>
-                                           <h6 class="text-muted mb-0">{{ session['login'] }}</h6>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                {% endif %}
-                            <div class="col-12">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/qsbkZ7gIKnc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="row">
+                    {% if session['idUser'] %} {# si la session existe #}
+                    <div class="col-12 col-lg-3">
+                        <div class="card">
+                            <div class="card-body py-4 px-5">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-xl">
+                                        <img class="rounded-circle ms-2"
+                                            src="/static/images/avatar/{{session['avatar']}}" alt="Avatar">
+                                    </div>
+                                    <div class="ms-3 name">
+                                        <h5 class="font-bold">{{ session['prenom'] }} {{ session['nom'] }}</h5>
+                                        <h6 class="text-muted mb-0">{{ session['login'] }}</h6>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                    {% endif %}
+                    <div class="col-12">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/qsbkZ7gIKnc"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
-
-            <footer>
-                {%include('layout/footer.html')%}
-            </footer>
+            </section>
         </div>
+
+        <footer>
+            {%include('layout/footer.html')%}
+        </footer>
+    </div>
     </div>
     <script src="/static/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="/static/js/bootstrap.bundle.min.js"></script>

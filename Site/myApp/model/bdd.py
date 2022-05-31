@@ -177,8 +177,10 @@ def get_eventsData():
         listeEvents = None
         msg = "Failed get events data : {}".format(err)
     for event in listeEvents:
-        event['start_date'] = str(event['start_date'].year)+"-"+str(event['start_date'].month)+"-"+str(event['start_date'].day)+" "+str(event['start_date'].hour)+":"+str(event['start_date'].minute)
-        event['end_date'] = str(event['end_date'].year)+"-"+str(event['end_date'].month)+"-"+str(event['end_date'].day)+" "+str(event['end_date'].hour)+":"+str(event['end_date'].minute)
+        event['start_date'] = str(event['start_date'].year)+"-"+str(event['start_date'].month)+"-"+str(
+            event['start_date'].day)+" "+str(event['start_date'].hour)+":"+str(event['start_date'].minute)
+        event['end_date'] = str(event['end_date'].year)+"-"+str(event['end_date'].month)+"-"+str(
+            event['end_date'].day)+" "+str(event['end_date'].hour)+":"+str(event['end_date'].minute)
     return msg, listeEvents
 
 
@@ -234,6 +236,7 @@ def update_aeroclubData(champ, idAeroclub, newvalue):
         msg = "Failed update aeroclubs data : {}".format(err)
     return msg
 
+
 def delete_eventData(id):
     try:
         cnx, error = connexion()
@@ -248,4 +251,19 @@ def delete_eventData(id):
         msg = "suppEventOK"
     except mysql.connector.Error as err:
         msg = "Failed del event data : {}".format(err)
+    return msg
+
+
+def update_eventData(id, text, start_date, end_date):
+    try:
+        cnx, error = connexion()
+        cursor = cnx.cursor()
+        sql = "UPDATE events SET start_date = %s, end_date = %s, text = %s WHERE id = %s;"
+        param = (start_date, end_date, text, id,)
+        cursor.execute(sql, param)
+        cnx.commit()
+        close_bd(cursor, cnx)
+        msg = "updateEventOK"
+    except mysql.connector.Error as err:
+        msg = "Failed update events data : {}".format(err)
     return msg

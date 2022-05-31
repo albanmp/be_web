@@ -129,21 +129,20 @@ def updateMembre():
 def calendrier():
     return render_template("calendrier.html")
 
-@app.route("/load_events",methods = ["POST"])
+
+@app.route("/load_events", methods=["POST"])
 def load_events():
     data = bdd.get_eventsData()[1]
     return jsonify(data)
 
-@app.route("/create_events",methods = ["POST","GET"])
+
+@app.route("/create_events", methods=["POST", "GET"])
 def create_events():
-    print(request)
     text = request.form['text']
     start_date = request.form['start_date']
     end_date = request.form['end_date']
-    msg,lastId = bdd.add_eventData(text, start_date, end_date)
+    msg, lastId = bdd.add_eventData(text, start_date, end_date)
     return jsonify(lastId)
-
-    
 
 @app.route("/updateAeroclub", methods=['POST'])
 def updateAeroclub():
@@ -154,8 +153,20 @@ def updateAeroclub():
     print(msg)
     return msg
 
-@app.route("/delete_events", methods = ["POST"])
+
+@app.route("/delete_events", methods=["POST"])
 def delete_events():
     id = request.form['id']
     msg = bdd.delete_eventData(id)
+    return jsonify(msg)
+
+
+@app.route("/update_events", methods=["POST"])
+def update_events():
+    print('on rentre')
+    id = request.form['id']
+    text = request.form['text']
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
+    msg = bdd.update_eventData(id, text, start_date, end_date)
     return jsonify(msg)

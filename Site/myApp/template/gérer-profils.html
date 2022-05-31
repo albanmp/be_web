@@ -67,16 +67,20 @@
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
-                        <td><img src="/static/images/avatar/{{ user.avatar }}" width = 50 height = 50/></td>
-                        <td class='modif' data-url='updateMembre' data-name='nom' data-pk='{{user.idUser}}'>{{ user.nom }}</td>
-                        <td class='modif' data-url='updateMembre' data-name='prenom' data-pk='{{user.idUser}}'>{{ user.prenom }}</td>
-                        <td class='modif' data-url='updateMembre' data-name='mail' data-pk='{{user.idUser}}'>{{ user.mail }}</td>
-                        <td class='modif' data-url='updateMembre' data-name='login' data-pk='{{user.idUser}}'>{{ user.login }}</td>
-                        <td class='modifSelect' data-url = 'updateMembre' data-name= 'statut' data-pk='{{user.idUser}}'>
+                        <td><img src="/static/images/avatar/{{ user.avatar }}" width=50 height=50 /></td>
+                        <td class='modif' data-url='updateMembre' data-name='nom' data-pk='{{user.idUser}}'>{{ user.nom
+                            }}</td>
+                        <td class='modif' data-url='updateMembre' data-name='prenom' data-pk='{{user.idUser}}'>{{
+                            user.prenom }}</td>
+                        <td class='modif' data-url='updateMembre' data-name='mail' data-pk='{{user.idUser}}'>{{
+                            user.mail }}</td>
+                        <td class='modif' data-url='updateMembre' data-name='login' data-pk='{{user.idUser}}'>{{
+                            user.login }}</td>
+                        <td class='modifSelect' data-url='updateMembre' data-name='statut' data-pk='{{user.idUser}}'>
                             {% if user.statut == 0 %}
-                                Administrateur
+                            Administrateur
                             {% else %}
-                                Gestionnaire
+                            Gestionnaire
                             {% endif %}
                         </td>
                     </tr>
@@ -115,7 +119,7 @@
             source: [
                 { value: 1, text: 'Gestionnaire' },
                 { value: 0, text: 'Administrateur' }
-                ]
+            ]
         })
     </script>
 </body>

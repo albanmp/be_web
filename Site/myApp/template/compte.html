@@ -27,8 +27,8 @@
                         <div class="form-group position-relative has-icon-left mb-4">
                             <h5>Choisissez un avatar</h5>
                             {% for i in range(1,13) %}
-                                <input type="radio" name="avatar" value="{{i}}.png">
-                                <img src="/static/images/avatar/{{i}}.png" width = 60 height = 60/>
+                            <input type="radio" name="avatar" value="{{i}}.png">
+                            <img src="/static/images/avatar/{{i}}.png" width=60 height=60 />
                             {% endfor %}
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
@@ -65,7 +65,7 @@
 
                         <input type="radio" name="statut" value="1" checked /> Gestionnaire
                         <input type="radio" name="statut" value="0"> Administrateur
-                        
+
                         <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Créer le
                             compte</button>
                     </form>
