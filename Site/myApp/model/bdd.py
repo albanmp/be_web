@@ -138,17 +138,16 @@ def saveDataFromFile(data):
             return error, None
         cursor = cnx.cursor()
         # suppression des données précédentes
-        sql1 = "TRUNCATE TABLE identification;"
+        sql1 = "TRUNCATE TABLE events;"
         cursor.execute(sql1)
         # insertion des nouvelles données
         for d in data:
-            sql = "INSERT INTO identification (idUser, nom, prenom, mail, login, motPasse, statut, avatar) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s); ;"
-            param = (d['nom'], d['prenom'], d['mail'], d['login'],
-                     d['motPasse'], d['statut'], d['avatar'])
+            sql = "INSERT INTO events (id, start_date, end_date, text) VALUES (NULL, %s, %s, %s); ;"
+            param = (d['start_date'], d['end_date'], d['text'])
             cursor.execute(sql, param)
             cnx.commit()
         # changement valeur autoincrement
-        sql2 = "ALTER TABLE identification AUTO_INCREMENT=%s;"
+        sql2 = "ALTER TABLE events AUTO_INCREMENT=%s;"
         param2 = (len(data),)
         cursor.execute(sql2, param2)
         cnx.commit()

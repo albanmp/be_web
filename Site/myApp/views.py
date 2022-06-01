@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, jsonify
 from .model import bdd as bdd
 from .controller import function as f
 from werkzeug.utils import secure_filename
+import pandas, os
 
 
 app = Flask(__name__)
@@ -33,9 +34,29 @@ def auth_forgot_password():
     return render_template("auth-forgot-password.html")
 
 
-@app.route("/ui-file-uploader")
-def ui_file_uploader():
-    return render_template("ui-file-uploader.html")
+@app.route("/fichiers")
+@app.route("/fichiers/<infoMsg>")
+@app.route("/fichiers", methods=['POST'])
+def fichiers(infoMsg=''):
+    if "testFile" in request.files:
+        file = request.files['testFile']
+        #enregistrement du fichier dans le répertoire files
+        filename = secure_filename(file.filename)
+        UPLOAD_FOLDER = 'myApp/static/files/'
+        file.save(os.path.join(UPLOAD_FOLDER, filename))
+        #enregistrement du fichier sur le serveur
+        xls = pandas.read_excel(UPLOAD_FOLDER+file.filename)
+        data = xls.to_dict('records')
+        print([file.filename,data])
+        #Enregistrement des données en BDD
+        msg = bdd.saveDataFromFile(data)
+        print(msg)
+        if msg=="addDataFromFileOK":
+            return redirect("/importDataOK")
+        else:
+            return redirect("/fichiers/importDataEchec")
+    else:
+        return render_template("/fichiers.html", info=infoMsg)
 
 
 @app.route("/aeroclubs")
