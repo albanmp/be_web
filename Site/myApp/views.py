@@ -40,8 +40,8 @@ def ui_file_uploader():
 
 @app.route("/aeroclubs")
 def aeroclubs():
-    msg, listeMembre = bdd.get_membreData()
-    return render_template("aeroclubs.html", liste=listeMembre, infoErr=msg)
+    msg, listeAeroclub = bdd.get_aeroclubData()
+    return render_template("aeroclubs.html", liste=listeAeroclub, infoErr=msg)
 
 
 @app.route("/component-dropdown")
@@ -129,18 +129,44 @@ def updateMembre():
 def calendrier():
     return render_template("calendrier.html")
 
-@app.route("/load_events",methods = ["POST"])
+
+@app.route("/load_events", methods=["POST"])
 def load_events():
     data = bdd.get_eventsData()[1]
     return jsonify(data)
 
-@app.route("/create_events",methods = ["POST"])
+
+@app.route("/create_events", methods=["POST", "GET"])
 def create_events():
     text = request.form['text']
     start_date = request.form['start_date']
     end_date = request.form['end_date']
-    msg = bdd.add_membreData(text, start_date, end_date)
-    if msg == "addEventOK":
-        return redirect("/calendrier")
-    else:
-        return redirect("/calendrier")
+    msg, lastId = bdd.add_eventData(text, start_date, end_date)
+    return jsonify(lastId)
+
+@app.route("/updateAeroclub", methods=['POST'])
+def updateAeroclub():
+    idAeroclub = request.form['pk']
+    champ = request.form['name']
+    newvalue = request.form['value']
+    msg = bdd.update_aeroclubData(champ, idAeroclub, newvalue)
+    print(msg)
+    return msg
+
+
+@app.route("/delete_events", methods=["POST"])
+def delete_events():
+    id = request.form['id']
+    msg = bdd.delete_eventData(id)
+    return jsonify(msg)
+
+
+@app.route("/update_events", methods=["POST"])
+def update_events():
+    print('on rentre')
+    id = request.form['id']
+    text = request.form['text']
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
+    msg = bdd.update_eventData(id, text, start_date, end_date)
+    return jsonify(msg)

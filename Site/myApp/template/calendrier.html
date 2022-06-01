@@ -19,16 +19,9 @@
 </head>
 
 <body>
-    {% if info and info == "addEventOK" %}
-        <div class="alert alert-success text-center">
-            Nouveau membre inséré
-        </div>
-    {% endif %}
-    {% if info and info == "addEventProblem" %}
-        <div class="alert alert-danger text-center">
-            Problème insertion du nouveau membre
-        </div>
-    {% endif %}
+    <div class="logo">
+        <a href="/">Accueil</a>
+    </div>
     <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
         <div class="dhx_cal_navline">
             <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -43,47 +36,77 @@
         <div class="dhx_cal_data"></div>
     </div>
     <script>
-        scheduler.init("scheduler_here", new Date(2019, 0, 20), "week");
+        scheduler.i18n.setLocale("fr");
+        scheduler.init("scheduler_here", new Date(), "week");
         scheduler.setLoadMode("day");
-        
+
         // load data from the backend
         fetch('/load_events', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json; charset=UTF-8'},
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: new URLSearchParams(),
         })
-        .then((res) => res.json())
-        .then((data) => {
-         
-        console.log(data)
-        scheduler.parse(data,"json")
-    })
+            .then((res) => res.json())
+            .then((data) => {
 
-        .catch((err) => console.log(err))
+                console.log(data)
+                scheduler.parse(data, "json")
+            })
+
+            .catch((err) => console.log(err))
 
         //ajouter evenements dans la BDD
-        scheduler.attachEvent("onEventCreated", function(id,e){
+        scheduler.attachEvent("onEventAdded", function (id, e) {
             //any custom logic here
             //e.text e.start_date e.end_date e.color
-        fetch('/create_events', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            body: new URLSearchParams({text:e.text,start_date:e.start_date,end_date:e.end_date}),
-        })
+            console.log(e, id)
 
-        .catch((err) => console.log(err))
+            let obj = scheduler.getEvent(id)
+
+            var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i")
+
+
+            fetch('/create_events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: new URLSearchParams({ "text": obj.text, "start_date": formatFunc(obj.start_date), "end_date": formatFunc(obj.end_date) }),
+            })
+                .then((res) => res.json())
+                .then((lastId) => { obj.id = parseInt(lastId) })
+
+                .catch((err) => console.log(err))
+
+
         });
 
         //supprimer evenement de la BDD
-        scheduler.attachEvent("onEventDeleted", function(id,ev){
-            // custom code
+        scheduler.attachEvent("onEventDeleted", function (id, ev) {
+            fetch('/delete_events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: new URLSearchParams({ "id": id }),
+            })
+                .catch((err) => console.log(err))
         });
 
         //modifier evenement de la BDD
-        scheduler.attachEvent("onEventChanged", function(id,ev){
-            //any custom logic here
+        scheduler.attachEvent("onEventChanged", function (id, e) {
+            console.log(e, id)
+
+            let obj = scheduler.getEvent(id)
+
+            var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i")
+
+
+            fetch('/update_events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: new URLSearchParams({ "id": id, "text": obj.text, "start_date": formatFunc(obj.start_date), "end_date": formatFunc(obj.end_date) }),
+            })
+
+                .catch((err) => console.log(err))
         });
-        
+
     </script>
 </body>
 
