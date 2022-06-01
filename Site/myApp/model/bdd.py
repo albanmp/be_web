@@ -1,4 +1,5 @@
 import mysql.connector
+from flask import session
 from mysql.connector import errorcode
 from ..config import DB_SERVER
 
@@ -74,14 +75,14 @@ def del_membreData(idUser):
 # ajout d'un membre
 
 
-def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar):
+def add_membreData(nom, prenom, mail, login, motPasse, statut, avatar, idAeroclub):
     try:
         cnx, error = connexion()
         if error is not None:
             return error, None
         cursor = cnx.cursor()
-        sql = "INSERT INTO identification (nom, prenom, mail, login, motPasse, statut, avatar) VALUES (%s, %s, %s, %s, %s, %s, %s);"
-        param = (nom, prenom, mail, login, motPasse, statut, avatar)
+        sql = "INSERT INTO identification (nom, prenom, mail, login, motPasse, statut, avatar, idAeroclub) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        param = (nom, prenom, mail, login, motPasse, statut, avatar, idAeroclub)
         cursor.execute(sql, param)
         cnx.commit()
         close_bd(cursor, cnx)
@@ -184,23 +185,31 @@ def get_eventsData():
 
 
 def add_eventData(text, start_date, end_date):
-    try:
-        cnx, error = connexion()
-        if error is not None:
-            return error, None
-        cursor = cnx.cursor()
-        sql = "INSERT INTO events (start_date, end_date, text) VALUES (%s, %s, %s);"
-        param = (str(start_date), str(end_date), text)
-        cursor.execute(sql, param)
-        lastId = cursor.lastrowid
-        cnx.commit()
-        close_bd(cursor, cnx)
-        msg = "addEventOK"
-    except mysql.connector.Error as err:
-        msg = "Failed add event data : {}".format(err)
-        lastId = None
-        print(msg)
-    return msg, lastId
+    if session:
+        try:
+            cnx, error = connexion()
+            if error is not None:
+                return error, None
+            cursor = cnx.cursor()
+            sql = "INSERT INTO events (start_date, end_date, text, color) VALUES (%s, %s, %s, %s);"
+            sql1 = "SELECT * FROM Aeroclub"
+            cursor.execute(sql1)
+            listeAeroclub = cursor.fetchall()
+            color = "blue"
+            for aeroclub in listeAeroclub:
+                if aeroclub[0] == session["idAeroclub"]:
+                    color = str(aeroclub[2])
+            cursor = cnx.cursor()
+            param = (str(start_date), str(end_date), text, color)
+            cursor.execute(sql, param)
+            lastId = cursor.lastrowid
+            cnx.commit()
+            close_bd(cursor, cnx)
+            msg = "addEventOK"
+        except mysql.connector.Error as err:
+            msg = "Failed add event data : {}".format(err)
+            lastId = None
+        return msg, lastId
 
 
 def get_aeroclubData():
@@ -237,32 +246,68 @@ def update_aeroclubData(champ, idAeroclub, newvalue):
 
 
 def delete_eventData(id):
-    try:
-        cnx, error = connexion()
-        if error is not None:
-            return error, None
-        cursor = cnx.cursor()
-        sql = "DELETE FROM events WHERE id=%s;"
-        param = (id,)
-        cursor.execute(sql, param)
-        cnx.commit()
-        close_bd(cursor, cnx)
-        msg = "suppEventOK"
-    except mysql.connector.Error as err:
-        msg = "Failed del event data : {}".format(err)
-    return msg
+    if session:
+        try:
+            cnx, error = connexion()
+            if error is not None:
+                return error, None
+            cursor = cnx.cursor()
+            sql1 = "SELECT * FROM Aeroclub"
+            cursor.execute(sql1)
+            listeAeroclub = cursor.fetchall()
+            color = "blue"
+            for aeroclub in listeAeroclub:
+                if aeroclub[0] == session["idAeroclub"]:
+                    color = str(aeroclub[2])
+            cursor = cnx.cursor()
+            sql2 = "SELECT * FROM events"
+            cursor.execute(sql2)
+            listeEvents = cursor.fetchall()
+            color1 = "blue"
+            for event in listeEvents:
+                if int(event[0]) == int(id):
+                    color1 = str(event[4])
+            if color == color1 or session["statut"]==0:
+                cursor = cnx.cursor()
+                sql = "DELETE FROM events WHERE id=%s;"
+                param = (id,)
+                cursor.execute(sql, param)
+                cnx.commit()
+                close_bd(cursor, cnx)
+                msg = "suppEventOK"
+        except mysql.connector.Error as err:
+            msg = "Failed del event data : {}".format(err)
+        return msg
 
 
 def update_eventData(id, text, start_date, end_date):
-    try:
-        cnx, error = connexion()
-        cursor = cnx.cursor()
-        sql = "UPDATE events SET start_date = %s, end_date = %s, text = %s WHERE id = %s;"
-        param = (start_date, end_date, text, id,)
-        cursor.execute(sql, param)
-        cnx.commit()
-        close_bd(cursor, cnx)
-        msg = "updateEventOK"
-    except mysql.connector.Error as err:
-        msg = "Failed update events data : {}".format(err)
-    return msg
+    if session:
+        try:
+            cnx, error = connexion()
+            cursor = cnx.cursor()
+            sql1 = "SELECT * FROM Aeroclub"
+            cursor.execute(sql1)
+            listeAeroclub = cursor.fetchall()
+            color = "blue"
+            for aeroclub in listeAeroclub:
+                if aeroclub[0] == session["idAeroclub"]:
+                    color = str(aeroclub[2])
+            cursor = cnx.cursor()
+            sql2 = "SELECT * FROM events"
+            cursor.execute(sql2)
+            listeEvents = cursor.fetchall()
+            color1 = "blue"
+            for event in listeEvents:
+                if int(event[0]) == int(id):
+                    color1 = str(event[4])
+            if color == color1 or session["statut"]==0:
+                cursor = cnx.cursor()
+                sql = "UPDATE events SET start_date = %s, end_date = %s, text = %s WHERE id = %s;"
+                param = (start_date, end_date, text, id,)
+                cursor.execute(sql, param)
+                cnx.commit()
+                close_bd(cursor, cnx)
+                msg = "updateEventOK"
+        except mysql.connector.Error as err:
+            msg = "Failed update events data : {}".format(err)
+        return msg

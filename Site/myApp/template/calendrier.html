@@ -16,12 +16,31 @@
             overflow: hidden;
         }
     </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des vols</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/static/vendors/toastify/toastify.css">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/static/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="shortcut icon" href="/static/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
     <div class="logo">
         <a href="/">Accueil</a>
     </div>
+    {% if not session["idUser"] %}
+    <div class="alert alert-danger text-center">Veuillez vous connecter pour ajouter ou modifier un créneau</div>
+    {% endif %}
     <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
         <div class="dhx_cal_navline">
             <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -108,6 +127,7 @@
         });
 
     </script>
+
 </body>
 
 </html>

@@ -62,9 +62,15 @@
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-
+                        
+                        <h5>Statut</h5>
                         <input type="radio" name="statut" value="1" checked /> Gestionnaire
                         <input type="radio" name="statut" value="0"> Administrateur
+
+                        <h5>Aeroclub</h5>
+                        {% for aeroclub in liste %}
+                            <input type="radio" name="idAeroclub" value='{{aeroclub.idAeroclub}}' checked /> {{aeroclub.nomAeroclub}}
+                        {% endfor %}
 
                         <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Créer le
                             compte</button>

@@ -4,7 +4,7 @@
     <li class="sidebar-item  ">
         <a href="/" class='sidebar-link'>
             <i class="bi bi-grid-fill"></i>
-            <span>Tableau de bord</span>
+            <span>Accueil</span>
         </a>
     </li>
 
@@ -27,13 +27,14 @@
         </a>
     </li>
 
-
+    {% if session["statut"] == 0 or session["statut"] == 1 %}
     <li class="sidebar-item ">
         <a href="/fichiers" class='sidebar-link'>
             <i class="bi bi-cloud-arrow-up-fill"></i>
             <span>Importer créneaux</span>
         </a>
     </li>
+    {% endif %}
 
     <li class="sidebar-item  has-sub">
         <a href="#" class='sidebar-link'>

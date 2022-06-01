@@ -43,6 +43,7 @@ def verifAuth(login, mdp):
         session["motPasse"] = user["motPasse"]
         session["statut"] = user["statut"]
         session["avatar"] = user["avatar"]
+        session["idAeroclub"] = user["idAeroclub"]
         print(session["statut"])
         info = msg
     except TypeError as err:

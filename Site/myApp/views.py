@@ -26,7 +26,8 @@ def connecter(infoMsg=''):
 
 @app.route("/compte")
 def auth_register():
-    return render_template("compte.html")
+    msg, listeAeroclub = bdd.get_aeroclubData()
+    return render_template("compte.html", liste = listeAeroclub)
 
 
 @app.route("/auth-forgot-password")
@@ -111,8 +112,9 @@ def addMembre():
     motPasse = request.form['mdp']
     statut = request.form['statut']
     avatar = request.form['avatar']
+    idAeroclub = request.form['idAeroclub']
     msg = bdd.add_membreData(nom, prenom,
-                             mail, login, motPasse, statut, avatar)
+                             mail, login, motPasse, statut, avatar, idAeroclub)
     if msg == "addMembreOK":
         return redirect("/addUserOK")
     else:
@@ -162,8 +164,11 @@ def create_events():
     text = request.form['text']
     start_date = request.form['start_date']
     end_date = request.form['end_date']
-    msg, lastId = bdd.add_eventData(text, start_date, end_date)
-    return jsonify(lastId)
+    try:
+        msg, lastId = bdd.add_eventData(text, start_date, end_date)
+        return jsonify(lastId)
+    except:
+        return render_template("calendrier.html")
 
 @app.route("/updateAeroclub", methods=['POST'])
 def updateAeroclub():
@@ -171,15 +176,17 @@ def updateAeroclub():
     champ = request.form['name']
     newvalue = request.form['value']
     msg = bdd.update_aeroclubData(champ, idAeroclub, newvalue)
-    print(msg)
     return msg
 
 
 @app.route("/delete_events", methods=["POST"])
 def delete_events():
     id = request.form['id']
-    msg = bdd.delete_eventData(id)
-    return jsonify(msg)
+    try:
+        msg = bdd.delete_eventData(id)
+        return jsonify(msg)
+    except:
+        return render_template("calendrier.html")
 
 
 @app.route("/update_events", methods=["POST"])
@@ -189,5 +196,8 @@ def update_events():
     text = request.form['text']
     start_date = request.form['start_date']
     end_date = request.form['end_date']
-    msg = bdd.update_eventData(id, text, start_date, end_date)
-    return jsonify(msg)
+    try:
+        msg = bdd.update_eventData(id, text, start_date, end_date)
+        return jsonify(msg)
+    except:
+        return render_template("calendrier.html")
