@@ -13,6 +13,6 @@ DB_SERVER = {
     "password": "IENAC",
     "host": "localhost",
     "port": 8889,  # 8889 si MAC # 3306 Alban
-    "database": "Web",  # nom de la BDD
+    "database": "Web2",  # nom de la BDD
     "raise_on_warnings": True
 }

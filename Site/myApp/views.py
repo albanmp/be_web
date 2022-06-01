@@ -35,17 +35,20 @@ def auth_forgot_password():
     return render_template("auth-forgot-password.html")
 
 
-@app.route("/fichiers")
-@app.route("/fichiers/<infoMsg>")
-@app.route("/fichiers", methods=['POST'])
+@app.route("/a")
+@app.route("/a/<infoMsg>")
+@app.route("/a", methods=['POST'])
 def fichiers(infoMsg=''):
     if "testFile" in request.files:
         file = request.files['testFile']
         #enregistrement du fichier dans le répertoire files
         filename = secure_filename(file.filename)
-        UPLOAD_FOLDER = 'myApp/static/files/'
+        UPLOAD_FOLDER = 'static/files/'
+        print("aaaa")
+        print(filename)
         file.save(os.path.join(UPLOAD_FOLDER, filename))
         #enregistrement du fichier sur le serveur
+        print("bbbbb")
         xls = pandas.read_excel(UPLOAD_FOLDER+file.filename)
         data = xls.to_dict('records')
         print([file.filename,data])
@@ -58,12 +61,33 @@ def fichiers(infoMsg=''):
             return redirect("/fichiers/importDataEchec")
     else:
         return render_template("/fichiers.html", info=infoMsg)
+    
+@app.route('/fichiers', methods = ['GET', 'POST'])
+@app.route("/fichiers/<infoMsg>")
+def upload_file(infoMsg=''):
+   if request.method == 'POST':
+        UPLOAD_FOLDER = '/myApp/static/files/'
+        f = request.files['file']
+        f.save(f.filename)
+        xls = pandas.read_excel(f.filename)
+        data = xls.to_dict('records')
+        print([f.filename,data])
+        #Enregistrement des données en BDD
+        msg = bdd.saveDataFromFile(data)
+        print(msg)
+        if msg=="addDataFromFileOK":
+            return redirect("/importDataOK")
+        else:
+            return redirect("/fichiers/importDataEchec")
+   else :
+       return render_template("fichiers.html")
 
 
 @app.route("/aeroclubs")
 def aeroclubs():
     msg, listeAeroclub = bdd.get_aeroclubData()
-    return render_template("aeroclubs.html", liste=listeAeroclub, infoErr=msg)
+    msg1, listeAvions = bdd.get_avionData()
+    return render_template("aeroclubs.html", liste=listeAeroclub, liste1=listeAvions)
 
 
 @app.route("/component-dropdown")

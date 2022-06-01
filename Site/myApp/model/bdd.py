@@ -2,6 +2,7 @@ import mysql.connector
 from flask import session
 from mysql.connector import errorcode
 from ..config import DB_SERVER
+from datetime import datetime
 
 ###################################################################################
 # connexion au serveur de la base de données
@@ -138,13 +139,10 @@ def saveDataFromFile(data):
         if error is not None:
             return error, None
         cursor = cnx.cursor()
-        # suppression des données précédentes
-        sql1 = "TRUNCATE TABLE events;"
-        cursor.execute(sql1)
         # insertion des nouvelles données
         for d in data:
-            sql = "INSERT INTO events (id, start_date, end_date, text) VALUES (NULL, %s, %s, %s); ;"
-            param = (d['start_date'], d['end_date'], d['text'])
+            sql = "INSERT INTO events (id, start_date, end_date, text, color) VALUES (NULL, %s, %s, %s, %s)"
+            param = (datetime.strptime(d['start_date'], "%Y-%m-%d %H:%M:%S"), datetime.strptime(d['end_date'], "%Y-%m-%d %H:%M:%S"), d['text'], d['color'])
             cursor.execute(sql, param)
             cnx.commit()
         # changement valeur autoincrement
@@ -209,6 +207,7 @@ def add_eventData(text, start_date, end_date):
         except mysql.connector.Error as err:
             msg = "Failed add event data : {}".format(err)
             lastId = None
+        print(msg)
         return msg, lastId
 
 
@@ -311,3 +310,20 @@ def update_eventData(id, text, start_date, end_date):
         except mysql.connector.Error as err:
             msg = "Failed update events data : {}".format(err)
         return msg
+
+def get_avionData():
+
+    try:
+        cnx, error = connexion()
+        if error is not None:
+            return error, None
+        cursor = cnx.cursor(dictionary=True)
+        sql = "SELECT * FROM Avions"
+        cursor.execute(sql)
+        listeAvions = cursor.fetchall()
+        close_bd(cursor, cnx)
+        msg = "OKavions"
+    except mysql.connector.Error as err:
+        listeAvions = None
+        msg = "Failed get avions data : {}".format(err)
+    return msg,listeAvions
